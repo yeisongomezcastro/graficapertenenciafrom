@@ -14,11 +14,11 @@ export class LineChartComponent {
   @Input() datosIniciales: DatosIniciales = new DatosIniciales;
 
   ngOnInit() {
-    this.datosIniciales.intervalo = "Continua"
+    this.datosIniciales.intervalo = "Continuo"
     this.datosIniciales.intervaloDesde = 0
     this.datosIniciales.intervaloHasta = 10
-    this.datosIniciales.puntoEvaluar = 4
-    this.datosIniciales.tipoGrafica = "Cerca"
+    this.datosIniciales.puntoEvaluar = 2
+    this.datosIniciales.tipoGrafica = "Muy Cerca"
     this.generarGrafica(this.getValorCercanidad());
   }
 
@@ -38,7 +38,17 @@ export class LineChartComponent {
   lineChartColors: Color[] = [
     {
       borderColor: 'black',
-      backgroundColor: 'rgba(255,255,0,0.28)',
+      backgroundColor: [
+        'rgba(0, 99, 132, 0.6)',
+        'rgba(30, 99, 132, 0.6)',
+        'rgba(60, 99, 132, 0.6)',
+        'rgba(90, 99, 132, 0.6)',
+        'rgba(120, 99, 132, 0.6)',
+        'rgba(150, 99, 132, 0.6)',
+        'rgba(180, 99, 132, 0.6)',
+        'rgba(210, 99, 132, 0.6)',
+        'rgba(240, 99, 132, 0.6)'
+      ],
     },
   ];
 

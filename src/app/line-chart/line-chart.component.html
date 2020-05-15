@@ -1,4 +1,7 @@
 <div class="chart-wrapper">
+    <label> Datos de la grafica:Punto de acercamiento:{{datosIniciales.puntoEvaluar}},
+        Tipo de grafica:{{datosIniciales.tipoGrafica}}, 
+        Intervalo de evaluacion:[{{datosIniciales.intervaloDesde}},{{datosIniciales.intervaloHasta}}] </label>
     <canvas baseChart 
         [datasets]="lineChartData" 
         [labels]="lineChartLabels" 
