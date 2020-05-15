@@ -1,0 +1,49 @@
+<div class="form basic-data grid_12">
+    <form  [formGroup]="formDatosIniciales">
+        <div class="field grid_6">
+            <label>Intervalo? *</label>
+            <div class="form-select">
+                <select id="Intervalo" class="form-control" formControlName="intervalo"
+                    [(ngModel)]="intervalo">
+                    <option disabled hidden [value]="undefined">Selecciona un valor</option>
+                    <option>Discreto</option>
+                    <option>Continuo</option>
+                </select>
+            </div>
+        </div>
+        <div class="field grid_6">
+            <label>Tipo Grafica *</label>
+            <div class="form-select">
+                <select id="tipoGrafica" class="form-control"
+                    formControlName="tipoGrafica" [(ngModel)]="tipoGrafica">
+                    <option disabled hidden [value]="undefined" [(ngModel)]="tipoGrafica">Selecciona un valor</option>
+                    <option>Muy Cerca</option>
+                    <option>Cerca</option>
+                    <option>Lejos</option>
+                    <option>Muy Lejos</option>
+                </select>
+            </div>
+        </div>
+        <div class="field grid_6">
+            <label>Intervalo de grafica</label>
+            <input id="intervaloDesde" class="form-control" type="text" placeholder="Desde"
+                formControlName="intervaloDesde"
+                [(ngModel)]="intervaloDesde">
+            <input id="intervaloHasta" class="form-control" type="text" placeholder="Hasta"
+                formControlName="intervaloHasta"
+                [(ngModel)]="intervaloHasta">
+        </div>
+        <div class="field grid_6">
+            <label>Punto a evaluar</label>
+            <input id="puntoEvaluar" class="form-control" type="text" placeholder="Punto acercamiento"
+                formControlName="puntoEvaluar"
+                [(ngModel)]="puntoEvaluar">
+        </div>
+        <br>
+
+        <div class="content-buttons">
+            <button id="btn_mostrar_data" class="btn btn-primary" type="button"
+               (click)="mostrarData()" [disabled]="formDatosIniciales.invalid">Graficar</button>
+        </div>
+    </form>
+</div>
