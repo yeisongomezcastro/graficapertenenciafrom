@@ -14,8 +14,16 @@ export class LineChartComponent {
 
   ngOnInit() {  
     console.log(this.datosIniciales);
+    this.resetData();
     this.generarGrafica(this.getValorCercanidad());
   }
+
+  ngOnChanges(){
+    this.resetData()
+    this.generarGrafica(this.getValorCercanidad())
+  }
+
+  
 
   lineChartData: ChartDataSets[]
   //= [
@@ -98,7 +106,7 @@ export class LineChartComponent {
     let temp = this.datosIniciales.intervaloDesde;
     while (temp <= this.datosIniciales.intervaloHasta) {
       this.lineChartLabels.push(temp);
-      temp += 1;
+      temp += 0.5;
     }
     for (let index = 0; index < this.lineChartLabels.length; index++) {
       this.data.push(this.funcionPendiente(this.lineChartLabels[index], this.datosIniciales.puntoEvaluar, valorCercanidad));
@@ -127,6 +135,11 @@ export class LineChartComponent {
       }
     }
 
+  }
+  resetData(){
+    this.lineChartData =[];
+    this.data = new Array<number>();
+    this.lineChartLabels = new Array<number>();
   }
 
 }

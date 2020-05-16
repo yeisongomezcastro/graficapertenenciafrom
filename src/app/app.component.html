@@ -8,8 +8,8 @@
       <app-datos-iniciales (datosGrafica) = 'obtenerDatosGrafica($event)'></app-datos-iniciales>
     </div>
 
-    <div *ngIf='mostrarGrafica' class="col-md-3">
-      <app-line-chart [datosIniciales] ='datosIniciales'></app-line-chart>
+    <div *ngIf='mostrarGrafica' class="col-md-30">
+      <app-line-chart [datosIniciales] ='datosGrafica'></app-line-chart>
     </div>
 
     <div class="col-md-9">

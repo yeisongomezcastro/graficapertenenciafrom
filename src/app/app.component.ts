@@ -13,6 +13,7 @@ export class AppComponent {
   mostrarGrafica = false;
 
   obtenerDatosGrafica(e) {
+    this.mostrarGrafica = false;
     this.datosGrafica = e;
     this.mostrarGrafica = true;
   }  

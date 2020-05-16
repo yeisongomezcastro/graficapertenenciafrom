@@ -26,16 +26,16 @@
         </div>
         <div class="field grid_6">
             <label>Intervalo de grafica</label>
-            <input id="intervaloDesde" class="form-control" type="text" placeholder="Desde"
+            <input id="intervaloDesde" class="form-control" type="number" placeholder="Desde"
                 formControlName="intervaloDesde"
                 [(ngModel)]="intervaloDesde">
-            <input id="intervaloHasta" class="form-control" type="text" placeholder="Hasta"
+            <input id="intervaloHasta" class="form-control" type="number" placeholder="Hasta"
                 formControlName="intervaloHasta"
                 [(ngModel)]="intervaloHasta">
         </div>
         <div class="field grid_6">
             <label>Punto a evaluar</label>
-            <input id="puntoEvaluar" class="form-control" type="text" placeholder="Punto acercamiento"
+            <input id="puntoEvaluar" class="form-control" type="number" placeholder="Punto acercamiento"
                 formControlName="puntoEvaluar"
                 [(ngModel)]="puntoEvaluar">
         </div>
@@ -43,7 +43,21 @@
 
         <div class="content-buttons">
             <button id="btn_mostrar_data" class="btn btn-primary" type="button"
-               (click)="emitirDatosGrafica()" [disabled]="formDatosIniciales.invalid">Graficar</button>
+               (click)="emitirDatosGrafica(content)" [disabled]="formDatosIniciales.invalid">Graficar</button>
         </div>
     </form>
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Errores encontrados</h4>
+        </div>
+        <div class="modal-body">
+            <div *ngFor="let item of mensajesValidacion">
+                <label><a>•</a>{{item}}</label>
+            </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn btn-danger mb-2 mr-2 center-block" (click)="c('Close click')">Aceptar</button>
+        </div>
+      </ng-template>
 </div>

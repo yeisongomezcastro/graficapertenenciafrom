@@ -1,11 +1,26 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { DatosIniciales } from '../model/DatosIniciales'
+import { NgbModal, NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 
  @Component({
   selector: 'app-datos-iniciales',
   templateUrl: './datos-iniciales.component.html',
   styleUrls: ['./datos-iniciales.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  styles: [`
+    .dark-modal .modal-content {
+      background-color: #292b2c;
+      color: white;
+    }
+    .dark-modal .close {
+      color: white;
+    }
+    .light-blue-backdrop {
+      background-color: #5cb3fd;
+    }
+  `],
+  providers:[NgbTabsetConfig]
 })
 export class DatosInicialesComponent implements OnInit {
   @Output() datosGrafica = new EventEmitter<DatosIniciales>();
@@ -24,10 +39,11 @@ export class DatosInicialesComponent implements OnInit {
   intervaloDesde: number;
   intervaloHasta: number;
   puntoEvaluar: number;
+  mensajesValidacion : String[];
 
   datosIniciales: DatosIniciales;
 
-  constructor(public fb: FormBuilder) { 
+  constructor(public fb: FormBuilder,private modalService: NgbModal) { 
     this.formDatosIniciales = this.fb.group({
       intervalo: ['', [Validators.required]],
       tipoGrafica: ['', [Validators.required]],
@@ -40,9 +56,15 @@ export class DatosInicialesComponent implements OnInit {
   ngOnInit() {
   }
 
-  emitirDatosGrafica() {
+  openBackDropCustomClass(content) {
+    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
+  }
+
+  emitirDatosGrafica(content) {
     if (this.validarFormulario()) {
       this.datosGrafica.emit(this.transformarDatosFormulario())      
+    }else{
+      this.openBackDropCustomClass(content)
     }
   }
 
@@ -57,17 +79,15 @@ export class DatosInicialesComponent implements OnInit {
   }
 
   validarFormulario() {
-    /*if (this.intervaloDesde == this.intervaloHasta) {
-      alert("El intervalo inicial("+ this.intervaloDesde +") no puede ser igual al final("+ this.intervaloHasta+")")
-      return false
-    }else if(this.intervaloDesde > this.intervaloHasta){
-      alert("El intervalo inicial("+ this.intervaloDesde +") no puede ser menor al final("+ this.intervaloHasta+")")
-      return false
-    }else if (!(this.puntoEvaluar > this.intervaloDesde && this.puntoEvaluar < this.intervaloHasta)){
-      alert("El punto a evaluar("+this.puntoEvaluar+") no estan dentro del intervalo inicial("+ this.intervaloDesde +") y el intervalo final("+ this.intervaloHasta+")")
-      return false
-    }*/
-    return true;
+    this.mensajesValidacion = new Array<string>();
+    if (this.intervaloDesde == this.intervaloHasta) {
+      this.mensajesValidacion.push("El intervalo inicial("+ this.intervaloDesde +") no puede ser igual al final("+ this.intervaloHasta+")")
+    }if(this.intervaloDesde > this.intervaloHasta){
+      this.mensajesValidacion.push("El intervalo inicial("+ this.intervaloDesde +") no puede ser menor al final("+ this.intervaloHasta+")")
+    }if (!(this.puntoEvaluar > this.intervaloDesde && this.puntoEvaluar < this.intervaloHasta)){
+      this.mensajesValidacion.push("El punto a evaluar("+this.puntoEvaluar+") no estan dentro del intervalo inicial("+ this.intervaloDesde +") y el intervalo final("+ this.intervaloHasta+")")
+    }
+    return this.mensajesValidacion.length>0 ? false : true;
   }
 
 
