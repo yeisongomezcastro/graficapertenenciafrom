@@ -2,14 +2,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { DatosIniciales } from '../model/DatosIniciales'
 
-
-
-@Component({
+ @Component({
   selector: 'app-datos-iniciales',
   templateUrl: './datos-iniciales.component.html',
   styleUrls: ['./datos-iniciales.component.css'],
 })
 export class DatosInicialesComponent implements OnInit {
+  @Output() datosGrafica = new EventEmitter<DatosIniciales>();
 
   formDatosIniciales = new FormGroup({
     intervalo: new FormControl(),
@@ -19,13 +18,14 @@ export class DatosInicialesComponent implements OnInit {
     puntoEvaluar : new FormControl()
 
   });
+
   intervalo: string ;
   tipoGrafica: string;
   intervaloDesde: number;
   intervaloHasta: number;
   puntoEvaluar: number;
-  datosIniciales: DatosIniciales = new DatosIniciales;
 
+  datosIniciales: DatosIniciales;
 
   constructor(public fb: FormBuilder) { 
     this.formDatosIniciales = this.fb.group({
@@ -40,33 +40,33 @@ export class DatosInicialesComponent implements OnInit {
   ngOnInit() {
   }
 
-  mostrarData() {
-    if(this.validarForm()){
-    this.asignarDataToObject()
-    alert("datos tomados del form->" + this.datosIniciales.intervalo
-      + "->" + this.datosIniciales.tipoGrafica + "->" + this.datosIniciales.intervaloDesde + "->" + this.datosIniciales.intervaloHasta)
+  emitirDatosGrafica() {
+    if (this.validarFormulario()) {
+      this.datosGrafica.emit(this.transformarDatosFormulario())      
     }
   }
 
-  asignarDataToObject(){
-    this.datosIniciales.intervalo = this.intervalo;
-    this.datosIniciales.intervaloDesde = this.intervaloDesde;
-    this.datosIniciales.intervaloHasta = this.intervaloHasta;
-    this.datosIniciales.tipoGrafica = this.tipoGrafica;
-    this.datosIniciales.puntoEvaluar = this.puntoEvaluar;
+  transformarDatosFormulario(): DatosIniciales {
+    return {
+      intervalo : this.intervalo,
+      tipoGrafica : this.tipoGrafica,
+      intervaloDesde : this.intervaloDesde,
+      intervaloHasta : this.intervaloHasta,
+      puntoEvaluar : this.puntoEvaluar
+    };
   }
 
-  validarForm() {
-    if (this.intervaloDesde == this.intervaloHasta) {
+  validarFormulario() {
+    /*if (this.intervaloDesde == this.intervaloHasta) {
       alert("El intervalo inicial("+ this.intervaloDesde +") no puede ser igual al final("+ this.intervaloHasta+")")
       return false
     }else if(this.intervaloDesde > this.intervaloHasta){
       alert("El intervalo inicial("+ this.intervaloDesde +") no puede ser menor al final("+ this.intervaloHasta+")")
       return false
-    }else if (!(this.puntoEvaluar>this.intervaloDesde && this.puntoEvaluar<this.intervaloHasta)){
+    }else if (!(this.puntoEvaluar > this.intervaloDesde && this.puntoEvaluar < this.intervaloHasta)){
       alert("El punto a evaluar("+this.puntoEvaluar+") no estan dentro del intervalo inicial("+ this.intervaloDesde +") y el intervalo final("+ this.intervaloHasta+")")
       return false
-    }
+    }*/
     return true;
   }
 

@@ -16,7 +16,7 @@
             <div class="form-select">
                 <select id="tipoGrafica" class="form-control"
                     formControlName="tipoGrafica" [(ngModel)]="tipoGrafica">
-                    <option disabled hidden [value]="undefined" [(ngModel)]="tipoGrafica">Selecciona un valor</option>
+                    <option disabled hidden [value]="undefined">Selecciona un valor</option>
                     <option>Muy Cerca</option>
                     <option>Cerca</option>
                     <option>Lejos</option>
@@ -43,7 +43,7 @@
 
         <div class="content-buttons">
             <button id="btn_mostrar_data" class="btn btn-primary" type="button"
-               (click)="mostrarData()" [disabled]="formDatosIniciales.invalid">Graficar</button>
+               (click)="emitirDatosGrafica()" [disabled]="formDatosIniciales.invalid">Graficar</button>
         </div>
     </form>
 </div>

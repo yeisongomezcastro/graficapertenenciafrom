@@ -1,5 +1,5 @@
 import { Component, Input, } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
+import { ChartDataSets } from 'chart.js';
 import { Color } from 'ng2-charts';
 import { DatosIniciales } from '../model/DatosIniciales';
 
@@ -10,15 +10,10 @@ import { DatosIniciales } from '../model/DatosIniciales';
 })
 
 export class LineChartComponent {
+  @Input() datosIniciales: DatosIniciales;
 
-  @Input() datosIniciales: DatosIniciales = new DatosIniciales;
-
-  ngOnInit() {
-    this.datosIniciales.intervalo = "Continuo"
-    this.datosIniciales.intervaloDesde = 0
-    this.datosIniciales.intervaloHasta = 10
-    this.datosIniciales.puntoEvaluar = 2
-    this.datosIniciales.tipoGrafica = "Muy Cerca"
+  ngOnInit() {  
+    console.log(this.datosIniciales);
     this.generarGrafica(this.getValorCercanidad());
   }
 
