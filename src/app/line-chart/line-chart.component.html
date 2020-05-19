@@ -1,7 +1,12 @@
 <div class="chart-wrapper">
-    <label> Datos de la grafica:Punto de acercamiento:{{datosIniciales.puntoEvaluar}},
-        Tipo de grafica:{{datosIniciales.tipoGrafica}}, 
-        Intervalo de evaluacion:[{{datosIniciales.intervaloDesde}},{{datosIniciales.intervaloHasta}}] </label>
+
+    <div class="alert alert-primary" role="alert">
+        <strong>Datos de la gráfica</strong><br>
+        <strong>Punto de acercamiento:</strong> {{datosIniciales.puntoEvaluar}}, 
+        <strong>Tipo de gráfica:</strong> {{datosIniciales.tipoGrafica}}, 
+        <strong>Intervalo de evaluación:</strong> [{{datosIniciales.intervaloDesde}}, {{datosIniciales.intervaloHasta}}]
+    </div>
+    
     <canvas baseChart 
         [datasets]="lineChartData" 
         [labels]="lineChartLabels" 

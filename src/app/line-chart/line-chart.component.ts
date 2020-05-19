@@ -21,17 +21,10 @@ export class LineChartComponent {
   ngOnChanges(){
     this.resetData()
     this.generarGrafica(this.getValorCercanidad())
-  }
-
-  
+  }  
 
   lineChartData: ChartDataSets[]
-  //= [
-  //{ data: [0, 1, 0.9, 0.7, 0.5, 0.3, 0.1,0,0,0,0,0], label: 'Discreto' },
-  //];
-
   data = new Array<number>()
-  //lineChartLabels: Label[] = ['1', '2', '3', '4', '5', '6','7','9','10','11','12'];
   lineChartLabels = new Array<number>();
 
   lineChartOptions = {
