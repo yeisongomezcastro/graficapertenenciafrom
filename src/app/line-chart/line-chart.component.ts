@@ -59,18 +59,24 @@ export class LineChartComponent {
   lineChartPlugins = [];
   lineChartType = 'line';
 
-  funcionContinua(valor: number, punto: number, valorAcerca: number) {
-    return 1 / (1 + Math.pow((valor - punto), valorAcerca));
+  funcionContinuaCercaMuyCerca(valorCercanidad: number, x: number, puntoAcercamiento: number) {
+    return 1 / (1 + Math.pow((puntoAcercamiento - x), valorCercanidad));
   }
+
+  funcionContinuaLejosMuyLejos(valorCercanidad: number, x: number, puntoAcercamiento: number) {
+    return 1 /(1+((Math.pow((puntoAcercamiento-x),2)/valorCercanidad)));
+  }
+
 
   funcionPendiente(x: number, puntoAcercamiento: number, unidades: number) {
     let puntoPendientePositiva = puntoAcercamiento-unidades
     let puntoFinalPendienteNegativa = puntoAcercamiento + unidades
     if(x<puntoPendientePositiva) return 0
-    //evaluacion de pendiente positiva
+    //Evaluacion de pendiente positiva
     if (x >= puntoPendientePositiva && x < puntoAcercamiento) {
       return (x-puntoPendientePositiva) / (puntoAcercamiento - puntoPendientePositiva)
     } else if(x <= puntoFinalPendienteNegativa) {
+      //Pendiente negativa
       return (puntoFinalPendienteNegativa - x) / (puntoAcercamiento - puntoPendientePositiva)
     }else{
       return 0
@@ -92,8 +98,14 @@ export class LineChartComponent {
       this.lineChartLabels.push(temp);
       temp += 2;
     }
-    for (let index = 0; index < this.lineChartLabels.length; index++) {
-      this.data.push(this.funcionContinua(this.lineChartLabels[index], this.datosIniciales.puntoEvaluar, valorCercanidad));
+    if(this.datosIniciales.tipoGrafica=="Lejos" || this.datosIniciales.tipoGrafica=="Muy Lejos"){
+      for (let index = 0; index < this.lineChartLabels.length; index++) {
+        this.data.push(this.funcionContinuaLejosMuyLejos(valorCercanidad,this.lineChartLabels[index], this.datosIniciales.puntoEvaluar));
+      }
+    }else{
+      for (let index = 0; index < this.lineChartLabels.length; index++) {
+        this.data.push(this.funcionContinuaCercaMuyCerca(valorCercanidad,this.lineChartLabels[index], this.datosIniciales.puntoEvaluar));
+      }
     }
     this.lineChartData = [
       { data: this.data, label: 'Continuo' },

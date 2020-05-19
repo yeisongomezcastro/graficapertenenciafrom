@@ -1,7 +1,7 @@
 <div class="form basic-data grid_12">
     <form  [formGroup]="formDatosIniciales">
         <div class="field grid_6">
-            <label>Intervalo? *</label>
+            <label>Intervalo *</label>
             <div class="form-select">
                 <select id="Intervalo" class="form-control" formControlName="intervalo"
                     [(ngModel)]="intervalo">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="field grid_6">
-            <label>Intervalo de grafica</label>
+            <label>Intervalo de grafica *</label>
             <input id="intervaloDesde" class="form-control" type="number" placeholder="Desde"
                 formControlName="intervaloDesde"
                 [(ngModel)]="intervaloDesde">
@@ -34,7 +34,7 @@
                 [(ngModel)]="intervaloHasta">
         </div>
         <div class="field grid_6">
-            <label>Punto a evaluar</label>
+            <label>Punto a evaluar *</label>
             <input id="puntoEvaluar" class="form-control" type="number" placeholder="Punto acercamiento"
                 formControlName="puntoEvaluar"
                 [(ngModel)]="puntoEvaluar">

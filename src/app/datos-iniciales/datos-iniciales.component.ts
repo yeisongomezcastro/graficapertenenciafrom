@@ -85,7 +85,7 @@ export class DatosInicialesComponent implements OnInit {
     }if(this.intervaloDesde > this.intervaloHasta){
       this.mensajesValidacion.push("El intervalo inicial("+ this.intervaloDesde +") no puede ser menor al final("+ this.intervaloHasta+")")
     }if (!(this.puntoEvaluar > this.intervaloDesde && this.puntoEvaluar < this.intervaloHasta)){
-      this.mensajesValidacion.push("El punto a evaluar("+this.puntoEvaluar+") no estan dentro del intervalo inicial("+ this.intervaloDesde +") y el intervalo final("+ this.intervaloHasta+")")
+      this.mensajesValidacion.push("El punto a evaluar["+this.puntoEvaluar+"] no estan dentro del intervalo ["+ this.intervaloDesde +","+ this.intervaloHasta+"]")
     }
     return this.mensajesValidacion.length>0 ? false : true;
   }
