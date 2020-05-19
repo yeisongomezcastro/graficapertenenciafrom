@@ -56,12 +56,15 @@ export class DatosInicialesComponent implements OnInit {
   ngOnInit() {
   }
 
+  //Modal para mostrar mensajes de validaciones
   openBackDropCustomClass(content) {
     this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
   }
 
+  //validacion de formulario 
   emitirDatosGrafica(content) {
     if (this.validarFormulario()) {
+      //Evento para enviar datos de grafica a componente que grafica
       this.datosGrafica.emit(this.transformarDatosFormulario())      
     }else{
       this.openBackDropCustomClass(content)
@@ -80,7 +83,9 @@ export class DatosInicialesComponent implements OnInit {
 
   validarFormulario() {
     this.mensajesValidacion = new Array<string>();
-    if (this.intervaloDesde == this.intervaloHasta) {
+    if (this.intervaloDesde < 0 || this.intervaloHasta < 0) {
+      this.mensajesValidacion.push("Solo es permitido valores positivos para definir los intervalos["+ this.intervaloDesde +","+ this.intervaloHasta+"]")
+    }if (this.intervaloDesde == this.intervaloHasta) {
       this.mensajesValidacion.push("El intervalo inicial("+ this.intervaloDesde +") no puede ser igual al final("+ this.intervaloHasta+")")
     }if(this.intervaloDesde > this.intervaloHasta){
       this.mensajesValidacion.push("El intervalo inicial("+ this.intervaloDesde +") no puede ser menor al final("+ this.intervaloHasta+")")

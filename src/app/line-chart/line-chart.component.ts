@@ -94,16 +94,19 @@ export class LineChartComponent {
 
   graficaContinua(valorCercanidad: number) {
     let temp = this.datosIniciales.intervaloDesde;
+    //Generacion de puntos en el eje x para evaluacion en la fn
     while (temp <= this.datosIniciales.intervaloHasta) {
       this.lineChartLabels.push(temp);
       temp += 2;
     }
     if(this.datosIniciales.tipoGrafica=="Lejos" || this.datosIniciales.tipoGrafica=="Muy Lejos"){
       for (let index = 0; index < this.lineChartLabels.length; index++) {
+        //evaluacion de puntos x para sacar valor y
         this.data.push(this.funcionContinuaLejosMuyLejos(valorCercanidad,this.lineChartLabels[index], this.datosIniciales.puntoEvaluar));
       }
     }else{
       for (let index = 0; index < this.lineChartLabels.length; index++) {
+        //evaluacion de puntos x para sacar valor y
         this.data.push(this.funcionContinuaCercaMuyCerca(valorCercanidad,this.lineChartLabels[index], this.datosIniciales.puntoEvaluar));
       }
     }
@@ -116,11 +119,14 @@ export class LineChartComponent {
 
   graficaDiscreta(valorCercanidad: number) {
     let temp = this.datosIniciales.intervaloDesde;
+    //Generacion de puntos en el eje x para evaluacion en la fn
     while (temp <= this.datosIniciales.intervaloHasta) {
+      //Generacion de puntos en el eje x para evaluacion en la fn
       this.lineChartLabels.push(temp);
       temp += 0.5;
     }
     for (let index = 0; index < this.lineChartLabels.length; index++) {
+      //evaluacion de puntos x para sacar valor y
       this.data.push(this.funcionPendiente(this.lineChartLabels[index], this.datosIniciales.puntoEvaluar, valorCercanidad));
     }
     this.lineChartData = [
@@ -130,6 +136,7 @@ export class LineChartComponent {
     console.log(this.data)
   }
 
+  //fn para obtener el valor de cercania segun el tipo de grafica y el intervalo
   getValorCercanidad() {
     if (this.datosIniciales.intervalo == "Discreto") {
       switch (this.datosIniciales.tipoGrafica) {
@@ -148,6 +155,8 @@ export class LineChartComponent {
     }
 
   }
+
+  //fn para reset de data de grafica 
   resetData(){
     this.lineChartData =[];
     this.data = new Array<number>();
