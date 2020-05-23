@@ -92,7 +92,32 @@ export class DatosInicialesComponent implements OnInit {
     }if (!(this.puntoEvaluar > this.intervaloDesde && this.puntoEvaluar < this.intervaloHasta)){
       this.mensajesValidacion.push("El punto a evaluar["+this.puntoEvaluar+"] no estan dentro del intervalo ["+ this.intervaloDesde +","+ this.intervaloHasta+"]")
     }
+    let valorCercania = this.getValorCercanidad()
+    if ((this.puntoEvaluar-this.intervaloDesde)<valorCercania) {
+      this.mensajesValidacion.push("El intervalo inicial debe ser minimo "+ valorCercania  +" unidades menor al punto a evaluar")
+    }
+    if ((this.intervaloHasta - this.puntoEvaluar)<valorCercania) {
+      this.mensajesValidacion.push("El intervalo final debe ser minimo "+ valorCercania  +" unidades mayor al punto a evaluar")
+    }
     return this.mensajesValidacion.length>0 ? false : true;
+  }
+
+  getValorCercanidad() {
+    if (this.intervalo == "Discreto") {
+      switch (this.tipoGrafica) {
+        case "Muy Cerca": return 1;
+        case "Cerca": return 2;
+        case "Lejos": return 5;
+        case "Muy Lejos": return 10;
+      }
+    } else {
+      switch (this.tipoGrafica) {
+        case "Muy Cerca": return 4;
+        case "Cerca": return 2;
+        case "Lejos": return 2;
+        case "Muy Lejos": return 4;
+      }
+    }
   }
 
 

@@ -26,6 +26,7 @@ export class LineChartComponent {
   lineChartData: ChartDataSets[]
   data = new Array<number>()
   lineChartLabels = new Array<number>();
+  fnEvaluada : string = ""
 
   lineChartOptions = {
     responsive: true,
@@ -53,10 +54,12 @@ export class LineChartComponent {
   lineChartType = 'line';
 
   funcionContinuaCercaMuyCerca(valorCercanidad: number, x: number, puntoAcercamiento: number) {
+    this.fnEvaluada = "1 / (1 + ("+puntoAcercamiento+" - x)^"+valorCercanidad+")"
     return 1 / (1 + Math.pow((puntoAcercamiento - x), valorCercanidad));
   }
 
   funcionContinuaLejosMuyLejos(valorCercanidad: number, x: number, puntoAcercamiento: number) {
+    this.fnEvaluada = "1 /(1+(("+puntoAcercamiento+"-x)^2/"+valorCercanidad+"))"
     return 1 /(1+((Math.pow((puntoAcercamiento-x),2)/valorCercanidad)));
   }
 
@@ -64,6 +67,10 @@ export class LineChartComponent {
   funcionPendiente(x: number, puntoAcercamiento: number, unidades: number) {
     let puntoPendientePositiva = puntoAcercamiento-unidades
     let puntoFinalPendienteNegativa = puntoAcercamiento + unidades
+    let diferenciaPtoAcerPtoPdtPos  = puntoAcercamiento - puntoPendientePositiva
+    this.fnEvaluada = "0 si x entre ["+this.datosIniciales.intervaloDesde+","+puntoPendientePositiva+"]U["+puntoFinalPendienteNegativa+","+this.datosIniciales.intervaloHasta+"]"+
+    "\n ; (x-"+puntoPendientePositiva+")/" + diferenciaPtoAcerPtoPdtPos + " si x entre["+puntoPendientePositiva+","+puntoAcercamiento+"]"+
+    "\n ; ("+puntoFinalPendienteNegativa+"-x)/"+diferenciaPtoAcerPtoPdtPos+" si x entre["+puntoAcercamiento+","+puntoFinalPendienteNegativa+"]"
     if(x<puntoPendientePositiva) return 0
     //Evaluacion de pendiente positiva
     if (x >= puntoPendientePositiva && x < puntoAcercamiento) {
@@ -116,7 +123,7 @@ export class LineChartComponent {
     while (temp <= this.datosIniciales.intervaloHasta) {
       //Generacion de puntos en el eje x para evaluacion en la fn
       this.lineChartLabels.push(temp);
-      temp += 0.5;
+      temp += 1;
     }
     for (let index = 0; index < this.lineChartLabels.length; index++) {
       //evaluacion de puntos x para sacar valor y
